@@ -1,0 +1,114 @@
+.button {
+    --background-color: var(--opacity-surface);
+    --border-color: transparent;
+    --color: var(--text-base);
+    --content-height: var(--spacing-xxl);
+    --padding-y: var(--spacing-s);
+    --padding-x: var(--spacing-m);
+    --icon-size: var(--spacing-l);
+    --font-size: --font-size-base;
+
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    color: var(--color);
+    display: inline-flex;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size);
+    padding: 0;
+    vertical-align: middle;
+    position: relative;
+    transition: all var(--duration-micro-fast) var(--easing-transition);
+    overflow: hidden;
+    white-space: nowrap;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background-color: var(--opacity-surface);
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform var(--duration-micro-fast) var(--easing-transition);
+        will-change: transform;
+    }
+
+    &:hover {
+        &:before {
+            transform: translateY(-100%) translateZ(0);
+        }
+    }
+
+    &:hover {
+        --background-color: var(--opacity-surface-state-1);
+    }
+    &:active {
+        --background-color: var(--opacity-surface-state-2);
+    }
+}
+
+.button__content {
+    clip-path: view-box;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+    height: var(--content-height);
+    padding: var(--padding-y) var(--padding-x);
+    position: relative;
+    z-index: 1;
+}
+
+.button__icon {
+    display: flex;
+
+    svg {
+        margin: 0 calc(var(--spacing-s) * -1);
+        width: var(--icon-size);
+        height: var(--icon-size);
+        stroke-width: 1.5;
+    }
+}
+
+.button--filled {
+        --background-color: var(--background-base);
+        --border-color: var(--border-subtle);
+        --color: var(--text-base);
+    }
+
+.button--cta {
+    --background-color: var(--primary-cta-base);
+    --color: var(--primary-cta-on-base);
+
+    &:hover {
+        --background-color: var(--primary-cta-state-1);
+    }
+    &:active {
+        --background-color: var(--primary-cta-state-2);
+    }
+}
+
+.button--transparent {
+    --background-color: transparent;
+    --border-color: transparent;
+}
+
+.button--styleless .button__content {
+    height: auto;
+    padding: 0;
+}
+
+.button--big {
+    --content-height: var(--spacing-xxxl);
+    --padding-x: var(--spacing-xxl);
+    --font-size: var(--font-size-large);
+}
+
+.button--text-white {
+    --color: var(--text-base);
+}
+.button--text-cta {
+    --color: var(--primary-cta-base);
+}

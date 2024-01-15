@@ -36,6 +36,10 @@
         background-color: var(--background-color);
         padding: var(--spacing-xl);
 
+        :global(.fiv-viv) {
+            width: 100%;
+            height: 100%;
+        }
         svg {
              width: 100%;
              height: 100%;

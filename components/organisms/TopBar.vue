@@ -22,9 +22,18 @@
           </Menu>
         </template>
       </SplitButton>
-      <IconButton color="transparent">
-        <Avatar src="https://picsum.photos/200" />
-      </IconButton>
+      <Menu>
+        <template #icon>
+          <IconButton color="transparent">
+            <Avatar src="https://picsum.photos/200" />
+          </IconButton>
+        </template>
+        <List>
+          <ListItem>Profiel</ListItem>
+          <ListItem>Instellingen</ListItem>
+          <ListItem>Uitloggen</ListItem>
+        </List>
+      </Menu>
     </div>
   </div>
 </template>

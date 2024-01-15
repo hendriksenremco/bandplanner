@@ -1,17 +1,16 @@
-// @ts-nocheck
-import { createUserWithEmailAndPassword, User, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { createUserWithEmailAndPassword, User, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
 
-export default function () {
+export const useAuth = () => {
   const { $auth } = useNuxtApp()
 
-  const user = useState<User | null>('user', () => null)
+  const loaded = useState<boolean>('loading', () => ref(false))
+  const user = useState<User | null>('user', () => ref(null))
 
-  onMounted(() => {
-    onAuthStateChanged($auth, authUser => {
-      if (authUser) {
-        user.value = authUser
-      }
-    })
+  onAuthStateChanged($auth, (authUser: User) => {
+    if (authUser) {
+      user.value = authUser
+    }
+    loaded.value = true
   })
 
   const register = async (email: string, password: string): Promise<boolean> => {
@@ -21,13 +20,15 @@ export default function () {
         user.value = credentials.user
         return true
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        // handle error
-      }
-      return false
+    } catch (error: any) {
+      throw new Error(error.code)
     }
     return false
+  }
+
+  const logout = async () => {
+    await signOut($auth)
+    user.value = null
   }
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -37,15 +38,17 @@ export default function () {
         user.value = credentials.user
         return true
       }
-    } catch (error : unkown) {
-      return false
+    } catch (error: any) {
+      throw new Error(error.code)
     }
     return false
   }
 
   return {
     user,
+    loaded,
     register,
-    login
+    login,
+    logout
   }
 }

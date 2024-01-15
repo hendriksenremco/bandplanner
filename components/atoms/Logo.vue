@@ -1,7 +1,7 @@
 <template>
-  <div :class="$style['logo']">
+  <NuxtLink :to="{path: '/'}" :class="$style['logo']">
     Band<span :class="$style['logo__part']">planner</span>
-  </div>
+  </NuxtLink>
 </template>
 <style lang="scss" module>
 .logo {

@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
 import { getFirestore } from 'firebase/firestore'
+import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD7e_H6hYNPeuKqfYXtSiNR235yZRcdnaM',
@@ -18,6 +19,7 @@ export default defineNuxtPlugin(nuxtApp => {
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
   const auth = getAuth(app)
+  const storage = getStorage(app)
   const analytics = getAnalytics(app)
 
   setPersistence(auth, browserLocalPersistence)
@@ -30,4 +32,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
   nuxtApp.provide('db', db)
   nuxtApp.vueApp.provide('db', db)
+
+  nuxtApp.provide('storage', storage)
+  nuxtApp.vueApp.provide('storage', storage)
 })

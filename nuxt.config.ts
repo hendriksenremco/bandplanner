@@ -3,6 +3,7 @@ import svgLoader from 'vite-svg-loader'
 
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  ssr: false,
   components: [
     { path: '~/components' },
     { path: '~/components/atoms' },

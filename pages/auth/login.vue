@@ -4,7 +4,7 @@
       Terug
     </Button>
     <h1>Inloggen</h1>
-    <LoginForm :class="$style['login__form']" />
+    <LoginForm />
   </div>
 </template>
 <script setup>
@@ -17,10 +17,6 @@ definePageMeta({
   .login {
       max-width: 400px;
       margin: 0 auto;
-
-      &__form {
-          margin-top: var(--spacing-xl)
-      }
 
       &__back {
           margin-bottom: var(--spacing-xxl);

@@ -10,6 +10,11 @@ export default defineNuxtConfig({
     { path: '~/components/molecules' },
     { path: '~/components/organisms' }
   ],
+  runtimeConfig: {
+    public: {
+      firebaseApiKey: ''
+    }
+  },
   vite: {
     plugins: [
       svgLoader({

@@ -3,11 +3,10 @@
     <slot />
   </div>
 </template>
-<style module>
+<style module lang="scss">
 .list-item {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     min-height: var(--spacing-xxxl);
-    padding: 0 var(--spacing-l);
 }
 </style>

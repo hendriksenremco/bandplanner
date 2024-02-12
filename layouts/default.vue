@@ -4,6 +4,7 @@
       <TopBar />
     </header>
     <aside
+      ref="aside"
       :class="[
         $style['layout__aside'],
         {[$style['layout__aside--mobile-show']]: sidebarShouldShow},
@@ -12,6 +13,7 @@
         <Logo />
       </div>
       <Navigation />
+      <Resizer />
     </aside>
     <main :class="$style['layout__main']">
       <div :class="$style['layout__wrapper']">
@@ -21,12 +23,21 @@
   </div>
 </template>
 <script setup>
+const { cursorType } = useLayout()
 const { sidebarShouldShow } = useLayout()
+const { width, setTarget } = useResizer()
+const sidebarWidth = computed(() => `${width.value}px`)
+const aside = ref(null)
+
+onMounted(() => {
+  setTarget(aside.value)
+})
 </script>
 <style  lang="scss" module>
 .layout {
+    cursor: v-bind(cursorType);
     display: grid;
-    grid-template-columns: 16rem 1fr;
+    grid-template-columns: v-bind(sidebarWidth) 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas:
         'left-nav top-bar'
@@ -57,10 +68,12 @@ const { sidebarShouldShow } = useLayout()
         background-color: var(--background-subtle);
         border-right: 1px solid var(--border-subtle);
         grid-area: left-nav;
+        position: relative;
 
         @media screen and (max-width: 800px) {
+            box-shadow: var(--box-shadow-elevation-1);
             padding-top: var(--spacing-xxxxl);
-            position: fixed;
+            position: absolute;
             left: 0;
             width: 240px;
             height: 100%;

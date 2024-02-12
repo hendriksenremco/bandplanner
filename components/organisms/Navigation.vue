@@ -1,13 +1,8 @@
 <template>
   <nav>
     <List>
-      <ListItem v-for="item in items" :key="item.label" :class="$style['navigation-item-list']">
-        <NuxtLink :class="$style['navigation-item-link']" :to="item.route">
-          <component :is="{...item.icon}" :class="$style['navigation-item-icon']" />
-          <Text color="inherit">
-            {{ item.label }}
-          </Text>
-        </NuxtLink>
+      <ListItem v-for="item in items" :key="item.label">
+        <NavigationLink :to="item.to" :label="item.label" :icon="item.icon" />
       </ListItem>
     </List>
   </nav>
@@ -15,7 +10,8 @@
 
 <script setup>
 import IconList from 'remixicon/icons/Editor/list-ordered-2.svg'
-import IconFolderMusic from 'remixicon/icons/Document/folder-music-line.svg'
+import IconFolder from 'remixicon/icons/Document/folder-line.svg'
+import IconMusic from 'remixicon/icons/Media/music-2-line.svg'
 import IconCalendar from 'remixicon/icons/Business/calendar-schedule-line.svg'
 import IconDashboard from 'remixicon/icons/System/dashboard-line.svg'
 import IconSettings from 'remixicon/icons/System/settings-4-line.svg'
@@ -25,43 +21,49 @@ const items = reactive([
   {
     label: 'Dashboard',
     icon: IconDashboard,
-    route: {
+    to: {
       name: 'index'
     }
   },
-
   {
     label: 'Repertoire',
-    icon: IconFolderMusic,
-    route: {
+    icon: IconMusic,
+    to: {
       name: 'songs'
-    }
-  },
-  {
-    label: 'Planning',
-    icon: IconCalendar,
-    route: {
-      name: 'planning'
     }
   },
   {
     label: 'Setlijsten',
     icon: IconList,
-    route: {
+    to: {
       name: 'setlists'
+    }
+  },
+  {
+    label: 'Bestanden',
+    icon: IconFolder,
+    to: {
+      name: 'files-slug'
+    }
+  },
+  {
+    label: 'Planning',
+    icon: IconCalendar,
+    to: {
+      name: 'planning'
     }
   },
   {
     label: 'Instellingen',
     icon: IconSettings,
-    route: {
+    to: {
       name: 'settings'
     }
   },
   {
     label: 'Styleguide',
     icon: IconFlask,
-    route: {
+    to: {
       name: 'styleguide'
     }
   }
@@ -80,28 +82,5 @@ const items = reactive([
     :global(&:hover:has(.router-link-active)) {
         background-color: var(--secondary-surface-state-1);
     }
-}
-.navigation-item-link {
-    align-items: center;
-    color: var(--text-subtle);
-    display: flex;
-    gap: var(--spacing-m);
-    height: auto;
-    padding: var(--spacing) 0;
-    width: 100%;
-
-    &:hover {
-        color: var(--text-base);
-    }
-
-    :global(&.router-link-active) {
-        color: var(--text-base);
-    }
-}
-
-.navigation-item-icon {
-    height: var(--spacing-l);
-    width: var(--spacing-l);
-    stroke-width: 1.5
 }
 </style>

@@ -1,13 +1,21 @@
 <template>
-  <div :class="$style['text-input-container']">
-    <input :id="$attrs.id" v-model="text" :class="$style['text-input']" :type="$attrs.type" :placeholder="$attrs.placeholder">
+  <div :class="[$attrs.class, $style['text-input-container']]">
+    <input
+      :id="$attrs.id"
+      ref="input"
+      v-model="text"
+      :class="$style['text-input']"
+      :type="$attrs.type"
+      :placeholder="$attrs.placeholder">
   </div>
 </template>
 <script setup>
 const text = defineModel()
+const input = ref(null)
 defineOptions({
   inheritAttrs: false
 })
+
 </script>
 <style  module>
 .text-input-container {

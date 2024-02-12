@@ -14,10 +14,14 @@
         <template #second>
           <Menu>
             <List>
-              <ListItem>Test</ListItem>
-              <ListItem>Test</ListItem>
-              <ListItem>Test</ListItem>
-              <ListItem>Test</ListItem>
+              <ListItem>
+                <NavigationLink label="Vereniging X" />
+              </ListItem>
+              <ListItem>
+                <Button color="transparent" :icon="IconAdd">
+                  Vereniging toevoegen
+                </Button>
+              </ListItem>
             </List>
           </Menu>
         </template>
@@ -29,18 +33,19 @@
           </IconButton>
         </template>
         <List>
-          <ListItem>Profiel</ListItem>
-          <ListItem>Instellingen</ListItem>
-          <ListItem>Uitloggen</ListItem>
+          <ListItem><NavigationLink label="Profiel" /></ListItem>
+          <ListItem><NavigationLink label="Instellingen" /></ListItem>
+          <ListItem><NavigationLink label="Uitloggen" @click="logout" /></ListItem>
         </List>
       </Menu>
     </div>
   </div>
 </template>
 <script setup>
+import IconAdd from 'remixicon/icons/System/add-fill.svg'
 import IconMenu from 'remixicon/icons/System/menu-fill.svg'
-
 const { toggleSidebar } = useLayout()
+const { logout } = useAuth()
 </script>
 <style lang="scss" module>
 .topbar {
@@ -62,6 +67,7 @@ const { toggleSidebar } = useLayout()
 }
 .topbar__search__input {
     max-width: 520px;
+    width: 100%;
     flex: 1;
 }
 .topbar__actions {

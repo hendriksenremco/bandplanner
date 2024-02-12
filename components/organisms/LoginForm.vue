@@ -1,6 +1,5 @@
 <template>
   <form :class="$style['login-form']" @submit.prevent="submit">
-    {{ user }}
     <div :class="$style['login-form__row']">
       <FormLabel for="email">
         E-mailadres

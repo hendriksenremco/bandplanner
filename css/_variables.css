@@ -3,9 +3,9 @@
 
     --font-family: 'Albert Sans', Arial, sans-serif;
 
-    --font-size-small: 12px;
-    --font-size-base: 14px;
-    --font-size-large: 16px;
+    --font-size-small: 13px;
+    --font-size-base: 15px;
+    --font-size-large: 18px;
     --font-weight-thin: 300;
     --font-weight-normal: 400;
     --font-weight-bold: 600;
@@ -58,4 +58,6 @@
     --folder-icon-fill: hsl(217, 84%, 80%);
 
     --box-shadow-elevation-1: 0px 16px 32px #0000000f,0px 8px 16px #0000000f,0px 4px 8px #0000000f,0px 2px 4px #0000000f,0px 1px 2px #0000000f;
+
+    --curtain: rgba(0,0,0,0.75);
 }

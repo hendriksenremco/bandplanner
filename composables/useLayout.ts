@@ -1,5 +1,6 @@
 export const useLayout = () => {
-  const sidebarShouldShow = useState('sidebar', () => ref(false))
+  const sidebarShouldShow: Ref<boolean> = useState('sidebar', () => ref(false))
+  const cursorType: Ref<string> = useState('cursorType', () => ref('default'))
 
   const showSidebar = () => {
     sidebarShouldShow.value = true
@@ -10,5 +11,5 @@ export const useLayout = () => {
   const toggleSidebar = () => {
     sidebarShouldShow.value = !sidebarShouldShow.value
   }
-  return { sidebarShouldShow, showSidebar, hideSidebar, toggleSidebar }
+  return { sidebarShouldShow, showSidebar, hideSidebar, toggleSidebar, cursorType }
 }

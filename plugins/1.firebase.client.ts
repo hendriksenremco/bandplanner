@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { initializeApp } from 'firebase/app'
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { getAnalytics } from 'firebase/analytics'
@@ -15,7 +14,7 @@ const firebaseConfig = {
   measurementId: 'G-0DB3L41SGM'
 }
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(() => {
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
   const auth = getAuth(app)
@@ -24,15 +23,12 @@ export default defineNuxtPlugin(nuxtApp => {
 
   setPersistence(auth, browserLocalPersistence)
 
-  nuxtApp.provide('analytics', analytics)
-  nuxtApp.vueApp.provide('analytics', analytics)
-
-  nuxtApp.provide('auth', auth)
-  nuxtApp.vueApp.provide('auth', auth)
-
-  nuxtApp.provide('db', db)
-  nuxtApp.vueApp.provide('db', db)
-
-  nuxtApp.provide('storage', storage)
-  nuxtApp.vueApp.provide('storage', storage)
+  return {
+    provide: {
+      auth,
+      db,
+      storage,
+      analytics
+    }
+  }
 })

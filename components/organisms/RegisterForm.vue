@@ -1,6 +1,5 @@
 <template>
   <form :class="$style['register-form']" @submit.prevent="submit">
-    {{ user }}
     <div :class="$style['register-form__row']">
       <FormLabel for="email">
         E-mailadres
@@ -27,13 +26,17 @@
   </form>
 </template>
 <script setup>
-const { user, register } = useAuth()
+
+const { register } = useAuth()
+const { updateUser } = useProfile()
+
 const email = ref(null)
 const password = ref(null)
 const name = ref(null)
 
 const submit = async () => {
-  await register(email.value, password.value)
+  await register({ email: email.value, password: password.value })
+  await updateUser({ name: name.value })
 }
 </script>
 <style lang="scss" module>

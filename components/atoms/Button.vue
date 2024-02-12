@@ -1,9 +1,12 @@
 <template>
-  <button
+  <component
+    :is="to ? nuxtLink :'button'"
+    :to="to"
     :class="[$style['button'],
              {[$style[`button--${color}`]]: color},
              {[$style[`button--text-${textColor}`]]: textColor},
              {[$style[`button--${size}`]]: size},
+             {[$style[`button--disabled`]]: disabled},
              {[$style[`button--styleless`]]: styleless}
     ]">
     <span :class="$style['button__content']">
@@ -16,9 +19,10 @@
         <component :is="icon" />
       </span>
     </span>
-  </button>
+  </component>
 </template>
 <script setup>
+const nuxtLink = resolveComponent('nuxt-link')
 defineProps({
   color: {
     type: String,
@@ -42,6 +46,14 @@ defineProps({
   },
   styleless: {
     type: Boolean,
+    default: false
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  to: {
+    type: Object,
     default: false
   }
 })

@@ -8,6 +8,7 @@
     --icon-size: var(--spacing-l);
     --font-size: --font-size-base;
 
+    align-items: center;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     cursor: pointer;
@@ -111,4 +112,9 @@
 }
 .button--text-cta {
     --color: var(--primary-cta-base);
+}
+.button--disabled {
+    --color: var(--text-subtle);
+    opacity: 0.5;
+    pointer-events: none;
 }

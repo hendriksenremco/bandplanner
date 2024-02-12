@@ -17,7 +17,6 @@ defineProps({
 <style module>
 .action-button {
     align-items: flex-start;
-
     display: flex;
     height: 100%;
     flex-direction: column;;

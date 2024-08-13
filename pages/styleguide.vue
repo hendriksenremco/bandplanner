@@ -1,7 +1,7 @@
 <template>
   <h1>Home</h1>
 
-  <AudioPlayer style="max-width: 600px" />
+  <AudioPlayer src="https://firebasestorage.googleapis.com/v0/b/bandplanner-a1ef4.appspot.com/o/XxTKQb0YOaWnPEEiyd0O1wsGmm63%2Fattachements%2F58D1bZG41r3dIbd18Me3%2Faudio%2Fscene15-amalia.mp3?alt=media&token=63f484db-3eed-4b17-bb45-746825d1e8cd " title="scene15-amalia.mp3" />
   <!-- <Menu>
     <List>
       <ListItem>Test</ListItem>

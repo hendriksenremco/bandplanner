@@ -18,10 +18,12 @@
         {{ currentMinutes }}:{{ currentSeconds }} / {{ totalMinutes }}:{{ totalSeconds }}
       </time>
     </div>
-    <AudioSeekbar v-if="player" :duration="player.duration" :current="player.currentTime" :class="$style['seekbar']" @update="setCurrentTime" />
+    <!-- <AudioSeekbar v-if="player" :duration="player.duration" :current="player.currentTime" :class="$style['seekbar']" @update="setCurrentTime" /> -->
+    <div ref="visualizer" :class="$style['visualizer']" />
   </div>
 </template>
 <script setup lang="ts">
+import WaveSurfer from 'wavesurfer.js'
 import IconPlay from 'remixicon/icons/Media/play-fill.svg'
 import IconPause from 'remixicon/icons/Media/pause-fill.svg'
 import IconSkipBack from 'remixicon/icons/Media/skip-back-fill.svg'
@@ -30,10 +32,11 @@ import IconForward10 from 'remixicon/icons/Media/forward-10-fill.svg'
 
 interface Props {
     src: string,
-    title: string
+    title: string,
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
+const visualizer = ref()
 const player = ref()
 const playing = ref(false)
 const currentSeconds = ref('00')
@@ -60,7 +63,6 @@ const setCurrentTime = time => {
   player.value.currentTime = time
 }
 onMounted(() => {
-  player.value.play()
   player.value.addEventListener('play', () => {
     playing.value = true
   })
@@ -77,9 +79,24 @@ onMounted(() => {
   })
   player.value.addEventListener('loadedmetadata', event => {
     const duration = event.target.duration
-
     totalMinutes.value = zeroPad(Math.floor(duration / 60))
     totalSeconds.value = zeroPad(Math.floor(duration % 60))
+  })
+
+  const wavesurfer = WaveSurfer.create({
+    container: visualizer.value,
+    waveColor: getComputedStyle(document.documentElement).getPropertyValue('--secondary-surface-state-2'),
+    progressColor: getComputedStyle(document.documentElement).getPropertyValue('--primary-cta-base'),
+    cursorColor: getComputedStyle(document.documentElement).getPropertyValue('--text-base'),
+    media: player.value,
+    dragToSeek: true,
+    url: props.src,
+    height: 30,
+    sampleRate: 3000
+  })
+
+  wavesurfer.on('interaction', () => {
+    wavesurfer.play()
   })
 })
 </script>
@@ -99,13 +116,16 @@ onMounted(() => {
 .controls {
     display: flex;
     gap: var(--spacing);
-
+    position: relative;
+    z-index: 2;
 }
 .info {
     display: flex;
     flex-direction: column;
     font-family: monospace;
     gap: var(--spacing);
+    position: relative;
+    z-index: 2;
 }
 
 .seekbar {
@@ -114,5 +134,16 @@ onMounted(() => {
     right: 0;
     left: 0;
     width: auto;
+    z-index: 2;
+}
+
+.visualizer {
+
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
 }
 </style>

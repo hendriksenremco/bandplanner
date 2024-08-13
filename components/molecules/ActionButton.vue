@@ -1,5 +1,5 @@
 <template>
-  <Button styleless>
+  <Button styleless :class="$style['button']">
     <div :class="$style['action-button']">
       <component :is="icon" v-if="icon" :class="$style['action-button__icon']" />
       <slot />
@@ -15,7 +15,11 @@ defineProps({
 })
 </script>
 <style module>
+.button {
+    --border-radius-local: var(--border-radius-xl);
+}
 .action-button {
+
     align-items: flex-start;
     display: flex;
     height: 100%;

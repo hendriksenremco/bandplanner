@@ -20,11 +20,17 @@
         <slot />
       </div>
     </main>
+    <footer v-if="audioPlayerShouldShow" :class="$style['layout__footer']">
+      <AudioPlayer v-if="audioPlayerShouldShow" :src="file" :title="fileName" />
+      <IconButton :icon="IconClose" @click="close" />
+    </footer>
   </div>
 </template>
 <script setup>
+import IconClose from 'remixicon/icons/System/close-fill.svg'
 const { cursorType } = useLayout()
 const { sidebarShouldShow } = useLayout()
+const { audioPlayerShouldShow, file, fileName, close } = useAudioPlayer()
 const { width, setTarget } = useResizer()
 const sidebarWidth = computed(() => `${width.value}px`)
 const aside = ref(null)
@@ -41,14 +47,17 @@ onMounted(() => {
     grid-template-rows: auto 1fr;
     grid-template-areas:
         'left-nav top-bar'
-        'left-nav main';
-    min-height: 100vh;
+        'left-nav main'
+        'left-nav footer';
+    height: 100dvh;
+    max-height: 100dvh;
 
     @media screen and (max-width: 800px) {
         grid-template-columns: auto auto;
         grid-template-areas:
         'top-bar top-bar'
-        'main main';
+        'main main'
+        'footer footer';
     }
 
     &__header {
@@ -97,11 +106,27 @@ onMounted(() => {
 
     &__main {
         grid-area: main;
+        overflow-y: auto;
+        height: 100%;
+
         padding: 0 2rem;
 
         @media screen and (max-width: 800px) {
             padding: 0 1rem;
         }
+    }
+
+    &__footer {
+        background-color: var(--secondary-surface);
+        color: var(--secondary-on-surface);
+        box-shadow: var(--box-shadow-elevation-1);
+        display: flex;
+        gap: var(--spacing-l);
+        align-items: center;
+        grid-area: footer;
+        width: 100%;
+        padding: 1rem;
+
     }
 
     &__wrapper {

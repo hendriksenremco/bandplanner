@@ -1,0 +1,118 @@
+<template>
+  <div :class="$style['audio-player']">
+    <div :class="$style['controls']">
+      <IconButton :icon="IconSkipBack" @click="replay()" />
+      <IconButton :icon="playing ? IconPause : IconPlay" @click="playing ? player.pause() : player.play()" />
+      <!-- <IconButton :icon="IconPause" /> -->
+      <IconButton :icon="IconReplay10" @click="skipBack()" />
+      <IconButton :icon="IconForward10" @click="skipForward()" />
+    </div>
+    <div :class="$style['info']">
+      <audio ref="player">
+        <source :src="src" type="audio/mpeg">
+      </audio>
+      <h4 :class="$style['info-title']">
+        {{ title }}
+      </h4>
+      <time :class="$style['info-time']">
+        {{ currentMinutes }}:{{ currentSeconds }} / {{ totalMinutes }}:{{ totalSeconds }}
+      </time>
+    </div>
+    <AudioSeekbar v-if="player" :duration="player.duration" :current="player.currentTime" :class="$style['seekbar']" @update="setCurrentTime" />
+  </div>
+</template>
+<script setup lang="ts">
+import IconPlay from 'remixicon/icons/Media/play-fill.svg'
+import IconPause from 'remixicon/icons/Media/pause-fill.svg'
+import IconSkipBack from 'remixicon/icons/Media/skip-back-fill.svg'
+import IconReplay10 from 'remixicon/icons/Media/replay-10-fill.svg'
+import IconForward10 from 'remixicon/icons/Media/forward-10-fill.svg'
+
+interface Props {
+    src: string,
+    title: string
+}
+defineProps<Props>()
+
+const player = ref()
+const playing = ref(false)
+const currentSeconds = ref('00')
+const currentMinutes = ref('00')
+const totalSeconds = ref('00')
+const totalMinutes = ref('00')
+
+const zeroPad = number => {
+  return number < 10 ? `0${number}` : number
+}
+
+const replay = () => {
+  player.value.currentTime = 0
+}
+const skipBack = () => {
+  player.value.currentTime -= 10
+}
+
+const skipForward = () => {
+  player.value.currentTime += 10
+}
+
+const setCurrentTime = time => {
+  player.value.currentTime = time
+}
+onMounted(() => {
+  player.value.play()
+  player.value.addEventListener('play', () => {
+    playing.value = true
+  })
+  player.value.addEventListener('pause', () => {
+    playing.value = false
+  })
+  player.value.addEventListener('timeupdate', () => {
+    const currentTime = player.value.currentTime
+    const duration = player.value.duration
+    currentMinutes.value = zeroPad(Math.floor(currentTime / 60))
+    currentSeconds.value = zeroPad(Math.floor(currentTime % 60))
+    totalMinutes.value = zeroPad(Math.floor(duration / 60))
+    totalSeconds.value = zeroPad(Math.floor(duration % 60))
+  })
+  player.value.addEventListener('loadedmetadata', event => {
+    const duration = event.target.duration
+
+    totalMinutes.value = zeroPad(Math.floor(duration / 60))
+    totalSeconds.value = zeroPad(Math.floor(duration % 60))
+  })
+})
+</script>
+<style module>
+
+.audio-player {
+    display: flex;
+    align-items: center;
+    flex-direction:row;
+    gap: var(--spacing-l);
+    max-width: 40rem;
+    width: 100%;
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing-xl);
+    position: relative;
+}
+.controls {
+    display: flex;
+    gap: var(--spacing);
+
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+    gap: var(--spacing);
+}
+
+.seekbar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: auto;
+}
+</style>

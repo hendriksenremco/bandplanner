@@ -13,7 +13,6 @@
     --line-height-base: 22px;
     --line-height-small: 20px;
 
-
     --background-base: rgb(26, 25, 24);
     --background-raised: rgb(45, 43, 41);
     --background-subtle: rgb(36, 35, 33);
@@ -40,6 +39,12 @@
     --surface-border: #eee;
 
     --border-subtle: hsla(0,0%,100%,0.1411764705882353);
+
+    --border-radius-xl: 16px;
+    --border-radius-l: 12px;
+    --border-radius: 8px;
+    --border-radius-s: 4px;
+    --border-radius-xs: 2px;
 
     --spacing-xxxxl: 64px;
     --spacing-xxxl: 48px;

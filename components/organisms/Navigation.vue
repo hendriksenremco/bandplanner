@@ -32,13 +32,13 @@ const items = reactive([
       name: 'songs'
     }
   },
-  {
-    label: 'Setlijsten',
-    icon: IconList,
-    to: {
-      name: 'setlists'
-    }
-  },
+  //   {
+  //     label: 'Setlijsten',
+  //     icon: IconList,
+  //     to: {
+  //       name: 'setlists'
+  //     }
+  //   },
   {
     label: 'Bestanden',
     icon: IconFolder,
@@ -46,13 +46,13 @@ const items = reactive([
       name: 'files-slug'
     }
   },
-  {
-    label: 'Planning',
-    icon: IconCalendar,
-    to: {
-      name: 'planning'
-    }
-  },
+  //   {
+  //     label: 'Planning',
+  //     icon: IconCalendar,
+  //     to: {
+  //       name: 'planning'
+  //     }
+  //   },
   {
     label: 'Instellingen',
     icon: IconSettings,

@@ -19,5 +19,4 @@ const route = useRoute()
 const file = fileRef($storage, `/${user.value.uid}/files/${route.params.slug}`)
 const url = await getDownloadURL(file)
 
-console.log(url)
 </script>

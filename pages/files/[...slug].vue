@@ -29,7 +29,7 @@
         <!-- <ActionButton color="filled" :icon="IconFileMove">
           Verplaatsen
         </ActionButton> -->
-        <ActionButton :disabled="!selected.length" color="filled" :icon="IconDelete" @click="deleteFiles">
+        <ActionButton :disabled="!selected.length" color="filled" :icon="IconDelete" @click="deleteItems()">
           Verwijderen
         </ActionButton>
         <!-- <ActionButton color="filled" :icon="IconShare">
@@ -40,7 +40,7 @@
     <div :class="$style['wrapper__files']">
       <Breadcrumbs />
       <h1>{{ currentFolder }}</h1>
-      <FileGrid :name="currentFolder" @update="onUpload">
+      <FileGrid :name="currentFolder" @update="event => onUpload(event)">
         <FileCard
           v-for="file in files"
           :key="file.name"
@@ -69,6 +69,7 @@ import IconDelete from 'remixicon/icons/System/delete-bin-2-line.svg'
 
 const router = useRouter()
 const { onUpload, selectFile, getFiles, createFolder, deleteFiles, getExtensionByFileName, currentFolder, files, selected } = useFiles()
+const { confirm } = useConfirm()
 const showFolderDialog = ref(false)
 const folderName = ref(null)
 
@@ -78,6 +79,12 @@ useHead({
 definePageMeta({
   requiresAuth: true
 })
+
+const deleteItems = async () => {
+  if (await confirm('Weet je het zeker?')) {
+    deleteFiles()
+  }
+}
 
 const goTo = file => {
   const path = file.fullPath.substr(file.fullPath.indexOf('/'))

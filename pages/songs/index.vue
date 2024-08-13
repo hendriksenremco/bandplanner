@@ -11,6 +11,7 @@
         Delen
       </ActionButton>
     </ActionBar>
+    <Breadcrumbs />
     <h1>Repertoire</h1>
 
     <Dialog v-if="showSongDialog" @close="showSongDialog = false">

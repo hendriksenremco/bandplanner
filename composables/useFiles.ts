@@ -1,11 +1,10 @@
 // @ts-nocheck
-import { ref as fileRef, uploadBytes, uploadString, listAll, deleteObject } from 'firebase/storage'
+import { ref as fileRef, uploadBytes, uploadString, listAll, deleteObject, getDownloadURL } from 'firebase/storage'
 
 export const useFiles = () => {
   const { $storage } = useNuxtApp()
   const { user } = useAuth()
   const route = useRoute()
-  const { target, childTarget } = useDragInfo()
   const selected = ref([])
   const files = ref([])
 
@@ -26,10 +25,11 @@ export const useFiles = () => {
     selected.value.push(file)
   }
 
-  const rootPath = computed(() => `/${user.value.uid}/files/${route.params.slug ? route.params.slug.join('/') : ''}`)
+  const rootPath = computed(() => `/${user.value.uid}/`)
+  const currentPath = computed(() => `/${user.value.uid}/files/${route.params.slug ? route.params.slug.join('/') : ''}`)
 
   const getFiles = async () => {
-    const listRef = fileRef($storage, rootPath.value)
+    const listRef = fileRef($storage, currentPath.value)
     const res = await listAll(listRef)
     if (res) {
       const folders = res.prefixes.map(item => {
@@ -53,7 +53,7 @@ export const useFiles = () => {
   }
 
   const createFolder = async name => {
-    const newRef = fileRef($storage, `${rootPath.value}/${name}/.ghostfile`)
+    const newRef = fileRef($storage, `${currentPath.value}/${name}/.ghostfile`)
     const result = await uploadString(newRef, 'temp')
     if (result) {
       await getFiles()
@@ -94,8 +94,8 @@ export const useFiles = () => {
     selected.value = []
   }
 
-  const onUpload = async event => {
-    const uploadDir = childTarget.value ? `${rootPath.value}/${childTarget.value}` : rootPath.value
+  const onUpload = async (event, target) => {
+    const uploadDir = target ? `${rootPath.value}/${target}` : currentPath.value
     const jobs = []
     Array.from(event.files).forEach(file => {
       const tempFileRef = fileRef($storage, `${uploadDir}/${file.name}`)
@@ -105,9 +105,12 @@ export const useFiles = () => {
     })
 
     await Promise.all(jobs)
-    target.value = null
-    childTarget.value = null
   }
 
-  return { onUpload, selectFile, getFiles, createFolder, deleteFile, deleteFolder, deleteFiles, getExtensionByFileName, currentFolder, files, selected }
+  const getUrl = async (file: string) => {
+    const fileRef2 = await fileRef($storage, file)
+    return await getDownloadURL(fileRef2)
+  }
+
+  return { onUpload, selectFile, getFiles, createFolder, deleteFile, deleteFolder, deleteFiles, getExtensionByFileName, getUrl, currentFolder, files, selected }
 }

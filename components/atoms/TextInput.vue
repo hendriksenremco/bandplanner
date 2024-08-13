@@ -20,6 +20,7 @@ defineOptions({
 <style  module>
 .text-input-container {
     border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius-l);
     display: flex;
     align-items: center;
     height: var(--spacing-xxxl);

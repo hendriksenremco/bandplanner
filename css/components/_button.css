@@ -1,6 +1,7 @@
 .button {
     --background-color: var(--opacity-surface);
     --border-color: transparent;
+    --border-radius-local: var(--border-radius);
     --color: var(--text-base);
     --content-height: var(--spacing-xxl);
     --padding-y: var(--spacing-s);
@@ -11,6 +12,7 @@
     align-items: center;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-local);
     cursor: pointer;
     color: var(--color);
     display: inline-flex;
@@ -19,7 +21,7 @@
     padding: 0;
     vertical-align: middle;
     position: relative;
-    transition: all var(--duration-micro-fast) var(--easing-transition);
+    transition: all var(--duration-micro-normal) var(--easing-transition);
     overflow: hidden;
     white-space: nowrap;
 
@@ -33,7 +35,7 @@
         z-index: 0;
         width: 100%;
         height: 100%;
-        transition: transform var(--duration-micro-fast) var(--easing-transition);
+        transition: transform var(--duration-micro-normal) var(--easing-transition);
         will-change: transform;
     }
 
@@ -55,10 +57,12 @@
     clip-path: view-box;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--spacing);
     height: var(--content-height);
     padding: var(--padding-y) var(--padding-x);
     position: relative;
+    width: 100%;
     z-index: 1;
 }
 

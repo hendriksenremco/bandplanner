@@ -1,14 +1,24 @@
 <template>
   <div ref="dropzone" :class="[$style['file-grid'], {[$style['file-grid__highlight']]: highlight}]">
+    <div v-if="empty">
+      Voeg bestanden toe door ze te slepen
+    </div>
+
     <slot />
   </div>
 </template>
 <script setup>
+const slots = useSlots()
+
 const { target } = useDragInfo()
 const props = defineProps({
   name: {
     type: String,
     default: null
+  },
+  empty: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['update'])

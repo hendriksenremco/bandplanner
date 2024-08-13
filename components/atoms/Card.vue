@@ -23,6 +23,7 @@ defineProps({
 <style lang="scss" module>
 .card {
     --background-color: var(--background-subtle);
+
     outline: 2px solid transparent;
     cursor: pointer;
     display: flex;
@@ -46,6 +47,7 @@ defineProps({
     }
 
     &__content {
+
         display: flex;
         align-items: center;
         padding-top: var(--spacing);
@@ -54,6 +56,7 @@ defineProps({
 
     &__media {
         aspect-ratio: 1 / 1;
+        border-radius: var(--border-radius-l);
         align-items: center;
         justify-content: center;
         display: flex;

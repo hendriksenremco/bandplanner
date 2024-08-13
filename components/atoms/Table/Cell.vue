@@ -16,7 +16,8 @@ defineProps<{
           display: flex;
           align-items: center;
           min-height: var(--spacing-xxxxl);
-          padding-left: var(--spacing-l);
+          padding-left: var(--spacing);
+          padding-right: var(--spacing);
           user-select: none;
       }
 

@@ -10,7 +10,7 @@
       <Text ellipsis>
         {{ title }}
       </Text>
-      <Text size="small" color="subtle">
+      <Text size="small" color="subtle" ellipsis>
         {{ subtitle }}
       </Text>
     </LabelGroup>
@@ -42,6 +42,10 @@ const props = defineProps({
   selected: {
     type: Boolean,
     default: false
+  },
+  size: {
+    type: [String, Boolean],
+    default: null
   }
 })
 
@@ -49,7 +53,6 @@ const card = ref(null)
 const highlight = ref(false)
 
 const onDragStart = event => {
-  console.log('dragstart', props.name)
   event.dataTransfer.setData('text', props.name)
 }
 

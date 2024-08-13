@@ -2,13 +2,13 @@
   <div :class="$style['topbar']">
     <div :class="$style['topbar__search']">
       <IconButton :class="$style['topbar__nav-button']" :icon="IconMenu" color="transparent" @click="toggleSidebar" />
-      <TextInput :class="$style['topbar__search__input']" placeholder="Search for people, keywords or tags" />
+      <!-- <TextInput :class="$style['topbar__search__input']" placeholder="Search for people, keywords or tags" /> -->
     </div>
     <div :class="$style['topbar__actions']">
       <SplitButton>
         <template #first>
           <Button color="transparent">
-            Harmonie Wierden
+            Hengelose Revue
           </Button>
         </template>
         <template #second>

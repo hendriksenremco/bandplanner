@@ -1,7 +1,8 @@
 <template>
   <h1>Home</h1>
 
-  <Menu>
+  <AudioPlayer style="max-width: 600px" />
+  <!-- <Menu>
     <List>
       <ListItem>Test</ListItem>
       <ListItem>Test</ListItem>
@@ -53,7 +54,7 @@
         Folder &bull; 6 items
       </Text>
     </LabelGroup>
-  </Card>
+  </Card> -->
 </template>
 <script setup>
 import IconFolder from 'remixicon/icons/Document/folder-fill.svg'

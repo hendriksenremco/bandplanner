@@ -39,6 +39,7 @@ onClickOutside(wrapper, () => { show.value = false })
 .menu-overlay {
     background-color: var(--background-raised);
     box-shadow: var(--box-shadow-elevation-1);
+    border-radius: var(--border-radius-l);
     outline: 1px solid var(--border-subtle);
     position: absolute;
     top: 0px;

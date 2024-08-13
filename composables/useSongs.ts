@@ -1,5 +1,7 @@
 import { query, where, collection, addDoc, getDocs, serverTimestamp, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import type { QueryDocumentSnapshot, Timestamp, FieldValue } from 'firebase/firestore'
+import { ref as fileRef, uploadBytes, uploadString, listAll, deleteObject } from 'firebase/storage'
+
 interface SongItem {
     id: string
     name: string
@@ -20,7 +22,7 @@ const converter = {
 }
 
 export const useSongs = () => {
-  const { $db } = useNuxtApp()
+  const { $db, $storage } = useNuxtApp()
   const { user } = useAuth()
   const songs: Ref<Array<SongItem>> = ref([])
 
@@ -38,6 +40,12 @@ export const useSongs = () => {
     return await updateDoc(docRef, item)
   }
 
+  const addFile = async (event: Event, target: string) => {
+    const { onUpload } = useFiles()
+    await onUpload(event, `attachements/${target}`)
+    // Add file to song. E.g. Audio-file or sheet music
+  }
+
   const getSongs = async () => {
     if (!user.value?.uid) { return }
 
@@ -49,15 +57,22 @@ export const useSongs = () => {
     })
   }
 
-  const getSong = async (id: string) => {
-    const docRef = doc($db, 'songs', id)
+  const getSong = async (songId: string) => {
+    const docRef = doc($db, 'songs', songId)
     const snapshot = await getDoc(docRef)
-    return snapshot.data()
+
+    return ref(snapshot.data())
+  }
+
+  const getAttachments = async (songId: string, subFolder: string) => {
+    const listRef = fileRef($storage, `/${user.value?.uid}/attachements/${songId}/${subFolder}`)
+    const res = await listAll(listRef)
+    return res.items
   }
 
   const deleteSong = async (id: any) => {
     return await deleteDoc(doc($db, 'songs', id))
   }
 
-  return { addSong, editSong, getSong, getSongs, deleteSong, songs }
+  return { addSong, editSong, getSong, getSongs, deleteSong, addFile, getAttachments, songs }
 }

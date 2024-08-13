@@ -17,6 +17,7 @@ defineProps<{
 .checkbox {
     background-color: var(--background-base);
     border: 1px solid var(--text-base);
+    border-radius: var(--border-radius-s);
     display: inline-block;
     width: var(--spacing-xl);
     height: var(--spacing-xl);
@@ -27,7 +28,8 @@ defineProps<{
     }
 
     &:has(:checked) {
-        background-color: var(--text-base);
+        background-color: var(--primary-cta-base);
+        border-color: var(--primary-cta-base);
         color: var(--background-base);
         .checkbox__icon {
             opacity: 1;

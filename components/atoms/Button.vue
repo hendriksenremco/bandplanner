@@ -53,7 +53,7 @@ defineProps({
     default: false
   },
   to: {
-    type: Object,
+    type: [Boolean, Object],
     default: false
   }
 })

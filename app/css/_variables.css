@@ -8,14 +8,14 @@
     --font-size-large: 18px;
     --font-weight-thin: 300;
     --font-weight-normal: 400;
-    --font-weight-bold: 600;
+    --font-weight-bold: 700;
 
     --line-height-base: 22px;
     --line-height-small: 20px;
 
     --background-base: rgb(26, 25, 24);
     --background-raised: rgb(45, 43, 41);
-    --background-subtle: rgb(36, 35, 33);
+    --background-subtle: rgb(18,17, 16);
     --text-base: #fff;
     --text-subtle: rgb(187, 181, 174);
 
@@ -32,8 +32,6 @@
     --primary-cta-state-1: hsl(217, 100%, 49%);
     --primary-cta-state-2: hsl(217, 100%, 39%);
     --primary-cta-on-base: hsl(217, 100%, 12%);
-
-    --secondary-base: #f7f5f2;
     
     --surface-ground: #fafefd;
     --surface-border: #eee;

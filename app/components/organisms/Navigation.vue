@@ -32,13 +32,13 @@ const items = reactive([
       name: 'songs'
     }
   },
-  //   {
-  //     label: 'Setlijsten',
-  //     icon: IconList,
-  //     to: {
-  //       name: 'setlists'
-  //     }
-  //   },
+  {
+    label: 'Setlijsten',
+    icon: IconList,
+    to: {
+      name: 'setlists'
+    }
+  },
   {
     label: 'Bestanden',
     icon: IconFolder,

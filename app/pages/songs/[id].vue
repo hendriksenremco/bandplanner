@@ -128,12 +128,14 @@ onMounted(async () => {
     }
 
     &__extra {
-        border-left: 1px solid var(--border-subtle);
+        background-color: var(--secondary-surface);
+        box-shadow: var(--box-shadow-elevation-1);
         display: flex;
         flex-direction: column;
         gap: var(--spacing);
-        padding: var(--spacing);
+        padding: var(--spacing-xl);
         justify-content: space-between;
+        place-content: flex-start;
         height: auto;
     }
 }
@@ -142,7 +144,6 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-l);
-
     width: 100%;
     max-width: 30rem;
 }

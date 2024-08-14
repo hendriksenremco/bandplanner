@@ -3,7 +3,6 @@
     <div :class="$style['controls']">
       <IconButton :icon="IconSkipBack" @click="replay()" />
       <IconButton :icon="playing ? IconPause : IconPlay" @click="playing ? player.pause() : player.play()" />
-      <!-- <IconButton :icon="IconPause" /> -->
       <IconButton :icon="IconReplay10" @click="skipBack()" />
       <IconButton :icon="IconForward10" @click="skipForward()" />
     </div>
@@ -18,12 +17,12 @@
         {{ currentMinutes }}:{{ currentSeconds }} / {{ totalMinutes }}:{{ totalSeconds }}
       </time>
     </div>
-    <!-- <AudioSeekbar v-if="player" :duration="player.duration" :current="player.currentTime" :class="$style['seekbar']" @update="setCurrentTime" /> -->
     <div ref="visualizer" :class="$style['visualizer']" />
   </div>
 </template>
 <script setup lang="ts">
 import WaveSurfer from 'wavesurfer.js'
+import Hover from 'wavesurfer.js/dist/plugins/hover.esm.js'
 import IconPlay from 'remixicon/icons/Media/play-fill.svg'
 import IconPause from 'remixicon/icons/Media/pause-fill.svg'
 import IconSkipBack from 'remixicon/icons/Media/skip-back-fill.svg'
@@ -44,6 +43,12 @@ const currentMinutes = ref('00')
 const totalSeconds = ref('00')
 const totalMinutes = ref('00')
 
+watch(() => props.src, () => {
+  if (!player.value) { return }
+  playing.value = false
+  initPlayer()
+})
+
 const zeroPad = number => {
   return number < 10 ? `0${number}` : number
 }
@@ -62,7 +67,8 @@ const skipForward = () => {
 const setCurrentTime = time => {
   player.value.currentTime = time
 }
-onMounted(() => {
+
+const initPlayer = () => {
   player.value.addEventListener('play', () => {
     playing.value = true
   })
@@ -92,13 +98,23 @@ onMounted(() => {
     dragToSeek: true,
     url: props.src,
     height: 30,
-    sampleRate: 3000
+    sampleRate: 3000,
+    plugins: [
+      Hover.create({
+        lineColor: getComputedStyle(document.documentElement).getPropertyValue('--text-base'),
+        lineWidth: 2,
+        labelBackground: '#555',
+        labelColor: '#fff',
+        labelSize: '0.8rem'
+      })
+    ]
   })
 
   wavesurfer.on('interaction', () => {
     wavesurfer.play()
   })
-})
+}
+onMounted(initPlayer)
 </script>
 <style module>
 
@@ -110,7 +126,7 @@ onMounted(() => {
     max-width: 40rem;
     width: 100%;
     padding-top: var(--spacing);
-    padding-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-xxl);
     position: relative;
 }
 .controls {
@@ -138,7 +154,7 @@ onMounted(() => {
 }
 
 .visualizer {
-
+    cursor: pointer;
     display: inline-block;
     width: 100%;
     height: 20px;

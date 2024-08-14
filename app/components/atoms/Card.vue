@@ -52,6 +52,15 @@ defineProps({
         align-items: center;
         padding-top: var(--spacing);
         height: var(--spacing-xxxxl);
+
+        :global(.fiv-viv) {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            width: 1.5rem;
+            line-height: 1.5rem;
+            position: relative;
+        }
     }
 
     &__media {

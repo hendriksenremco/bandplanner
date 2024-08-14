@@ -18,6 +18,7 @@
     display: inline-flex;
     font-weight: var(--font-weight-bold);
     font-size: var(--font-size);
+    font-family: var(--font-family);
     padding: 0;
     vertical-align: middle;
     position: relative;

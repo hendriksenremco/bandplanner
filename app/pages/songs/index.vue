@@ -1,19 +1,5 @@
 <template>
-  <div>
-    <ActionBar>
-      <ActionButton color="cta" :icon="IconAdd" @click="showSongDialog = true">
-        Toevoegen
-      </ActionButton>
-      <ActionButton color="filled" :icon="IconDelete" :disabled="!selected.length" @click="deleteSelection">
-        Verwijderen
-      </ActionButton>
-      <ActionButton color="filled" :icon="IconShare">
-        Delen
-      </ActionButton>
-    </ActionBar>
-    <Breadcrumbs />
-    <h1>Repertoire</h1>
-
+  <div :class="$style['layout']">
     <Dialog v-if="showSongDialog" @close="showSongDialog = false">
       <template #top>
         <IconAdd style="color: var(--folder-icon-fill)" />Nieuwe song
@@ -32,32 +18,49 @@
       </template>
     </Dialog>
 
-    <Table>
-      <thead>
-        <TableRow head>
-          <TableHead small />
-          <TableHead>
-            Naam
-          </TableHead>
-          <TableHead>
-            Aangepast
-          </TableHead>
-        </TableRow>
-      </thead>
-      <tbody>
-        <TableRow v-for="song in songs" :key="song.id" :selected="selected.includes(song.id)" @dblclick="goto(song.id)" @click.stop="toggleElement(song.id, true)">
-          <TableCell small>
-            <Checkbox :checked="selected.includes(song.id)" @click.stop="toggleElement(song.id)" />
-          </TableCell>
-          <TableCell>
-            {{ song.name }}
-          </TableCell>
-          <TableCell>
-            {{ song.updatedAt.toDate().toLocaleString() }}
-          </TableCell>
-        </TableRow>
-      </tbody>
-    </table>
+    <ActionBar>
+      <ActionButton color="cta" :icon="IconAdd" @click="showSongDialog = true">
+        Toevoegen
+      </ActionButton>
+      <ActionButton color="filled" :icon="IconDelete" :disabled="!selected.length" @click="deleteSelection">
+        Verwijderen
+      </ActionButton>
+      <ActionButton color="filled" :icon="IconShare">
+        Delen
+      </ActionButton>
+    </ActionBar>
+
+    <div>
+      <Breadcrumbs />
+      <h1>Repertoire</h1>
+
+      <Table>
+        <thead>
+          <TableRow head>
+            <TableHead small />
+            <TableHead>
+              Naam
+            </TableHead>
+            <TableHead>
+              Aangepast
+            </TableHead>
+          </TableRow>
+        </thead>
+        <tbody>
+          <TableRow v-for="song in songs" :key="song.id" :selected="selected.includes(song.id)" @dblclick="goto(song.id)" @click.stop="toggleElement(song.id, true)">
+            <TableCell small>
+              <Checkbox :checked="selected.includes(song.id)" @click.stop="toggleElement(song.id)" />
+            </TableCell>
+            <TableCell>
+              {{ song.name }}
+            </TableCell>
+            <TableCell>
+              {{ song.updatedAt.toDate().toLocaleString() }}
+            </TableCell>
+          </TableRow>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script setup>
@@ -99,3 +102,10 @@ const goto = id => {
 }
 
 </script>
+<style module>
+.layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+</style>

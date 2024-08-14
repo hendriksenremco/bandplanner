@@ -75,7 +75,6 @@ onMounted(() => {
 
     &__aside {
         background-color: var(--background-subtle);
-        border-right: 1px solid var(--border-subtle);
         grid-area: left-nav;
         position: relative;
 
@@ -108,18 +107,19 @@ onMounted(() => {
         grid-area: main;
         overflow-y: auto;
         height: 100%;
-
-        padding: 0 2rem;
+        padding: var(--spacing-xl);
+        padding-top: 0;
 
         @media screen and (max-width: 800px) {
-            padding: 0 1rem;
+            padding: var(--spacing-l);
         }
     }
 
     &__footer {
         background-color: var(--secondary-surface);
+        border-top: 1px solid var(--border-subtle);
         color: var(--secondary-on-surface);
-        box-shadow: var(--box-shadow-elevation-1);
+
         display: flex;
         gap: var(--spacing-l);
         align-items: center;

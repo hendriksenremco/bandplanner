@@ -1,20 +1,6 @@
 import { query, where, collection, addDoc, getDocs, serverTimestamp, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
-import type { QueryDocumentSnapshot, Timestamp, FieldValue } from 'firebase/firestore'
+import type { QueryDocumentSnapshot } from 'firebase/firestore'
 import { ref as fileRef, uploadBytes, uploadString, listAll, deleteObject } from 'firebase/storage'
-
-interface SongItem {
-    id: string
-    name: string
-    tempo?: string
-    rating?: 1|2|3|4|5
-    difficulty?: 1|2|3|4|5
-    key?: string
-    signature?: string,
-    userId: string,
-    createdAt: Timestamp | FieldValue
-    updatedAt: Timestamp | FieldValue,
-    labels?: Array<string>
-}
 
 const converter = {
   toFirestore: (data: SongItem) => data,
@@ -61,7 +47,7 @@ export const useSongs = () => {
     const docRef = doc($db, 'songs', songId)
     const snapshot = await getDoc(docRef)
 
-    return ref(snapshot.data())
+    return snapshot.data()
   }
 
   const getAttachments = async (songId: string, subFolder: string) => {

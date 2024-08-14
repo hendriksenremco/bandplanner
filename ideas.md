@@ -1,15 +1,17 @@
 # Bandplanner
 - Verenigingen
 - Setlijsten
-    - Exporteer
+    - [] Delen (read-only)
 - Bladmuziek
-    - Pdf
+    - [] Pdf
 - Audio
-    - mp3's
-    - In app opnames
+    - [x]mp3's
+    - []In app opnames
+    - []Change pitch
+    - []Slow mo
 - Nummers
-    - Bladmuziek
-    - Audio
+    - [x] Bladmuziek
+    - [x] Audio
 - Schedule
     - Repetities
     - Optredens
@@ -23,3 +25,6 @@
 
 - Api
 - I18N
+- Tools
+    - Metronome
+    - Tuning

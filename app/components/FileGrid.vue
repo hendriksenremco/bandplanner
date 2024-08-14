@@ -63,7 +63,8 @@ onMounted(() => {
     align-content: start;
     justify-items: center;
     gap: var(--spacing-xl);
-    height: 100%;
+    height: auto;
+    min-height: 3rem;
     flex-wrap: wrap;
     position: relative;
 

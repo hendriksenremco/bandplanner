@@ -29,7 +29,7 @@ defineOptions({
 
     &:focus-within {
         background-color: var(--background-raised);
-        border-color: transparent;
+
     }
 
     &:hover:not(:focus-within) {

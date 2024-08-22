@@ -1,0 +1,14 @@
+{
+  "hosting": [
+    {
+      "site": "bandplanner-a1ef4",
+      "public": ".output/public",
+      "cleanUrls": true,
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}

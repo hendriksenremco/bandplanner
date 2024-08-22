@@ -1,6 +1,7 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "engine": "nodejs20",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -12,6 +13,7 @@
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@types/node": "^20.11.5",
+    "@vite-pwa/nuxt": "^0.9.1",
     "@vueuse/core": "^10.7.1",
     "eslint": "^8.56.0",
     "file-icon-vectors": "^1.0.0",
@@ -25,5 +27,10 @@
     "vue": "^3.4.3",
     "vue-router": "^4.2.5",
     "wavesurfer.js": "^7.8.3"
-  }
+  },
+  "dependencies": {
+    "firebase-admin": "^12.3.1",
+    "firebase-functions": "^5.0.1"
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }

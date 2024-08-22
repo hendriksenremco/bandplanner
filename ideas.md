@@ -28,3 +28,16 @@
 - Tools
     - Metronome
     - Tuning
+
+
+# User stories
+
+- Als bandlid kan ik het huidige repetitieschema zien
+- Als bandlid kan ik de beschikbaarheid voor een datum aangeven
+- Als bandleider kan ik datums voorstellen voor repetities en optredens
+- Als bandleider kan ik setlists delen met bandleden
+- Als bandlid zie ik updates over data en setlist wijzigingen
+- Als gebruiker kan ik inloggen op bandplanner
+- Als gebruiker kan ik me registreren op bandplanner
+- Als gebruiker kan ik mijn wachtwoord resetten
+- Als gebruiker kan ik uitloggen op bandplanner

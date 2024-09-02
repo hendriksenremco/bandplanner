@@ -31,7 +31,6 @@
     </ActionBar>
 
     <div>
-      <Breadcrumbs />
       <h1>Repertoire</h1>
 
       <Table>
@@ -47,7 +46,7 @@
           </TableRow>
         </thead>
         <tbody>
-          <TableRow v-for="song in songs" :key="song.id" :selected="selected.includes(song.id)" @dblclick="goto(song.id)" @click.stop="toggleElement(song.id, true)">
+          <TableRow v-for="song in songs" :key="song.id" :selected="selected.includes(song.id)" @click="goto(song.id)">
             <TableCell small>
               <Checkbox :checked="selected.includes(song.id)" @click.stop="toggleElement(song.id)" />
             </TableCell>

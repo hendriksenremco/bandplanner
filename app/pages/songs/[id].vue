@@ -25,7 +25,7 @@
     </div>
     <div :class="$style['layout__extra']">
       <h3>Bladmuziek</h3>
-      <FileGrid :empty="!sheetMusic?.length" @update="event => addAttachment(event, `${song.id}/sheetmusic`)">
+      <FileGrid :empty="!sheetMusic?.length" @update="event => addAttachment(event, `${route.params.id}/sheetmusic`)">
         <Table v-if="sheetMusic?.length">
           <tbody>
             <TableRow
@@ -42,7 +42,7 @@
       </FileGrid>
 
       <h3>Audio</h3>
-      <FileGrid :empty="!audio?.length" @update="event => addAttachment(event, `${song.id}/audio`)">
+      <FileGrid :empty="!audio?.length" @update="event => addAttachment(event, `${route.params.id}/audio`)">
         <Table v-if="audio?.length">
           <tbody>
             <TableRow
@@ -74,8 +74,8 @@ const { play } = useAudioPlayer()
 
 const sheetMusic = ref()
 const audio = ref()
-const song = await getSong(route.params.id)
-
+const song = ref()
+song.value = await getSong(route.params.id)
 const fetchAttachments = async () => {
   sheetMusic.value = await getAttachments(route.params.id, 'sheetmusic')
   audio.value = await getAttachments(route.params.id, 'audio')

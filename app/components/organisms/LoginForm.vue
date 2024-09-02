@@ -11,7 +11,10 @@
       <FormLabel for="password">
         Wachtwoord
       </FormLabel>
-      <TextInput id="password" v-model="password" type="password" />
+      <TextInput id="password" v-model="password" type="password" :color="!!error ? 'error' : null" />
+      <FormLabel color="error">
+        {{ error }}
+      </FormLabel>
     </div>
     <div :class="$style['login-form__row']">
       <Button size="big" type="submit" color="cta" text-color="white">
@@ -19,7 +22,7 @@
       </Button>
     </div>
   </form>
-  {{ error }}
+
   <Button v-if="user" @click="logout">
     Uitloggen
   </Button>
@@ -29,8 +32,8 @@
 import messages from '~/assets/messages'
 
 const { user, login, logout } = useAuth()
-const email = ref(null)
-const password = ref(null)
+const email = ref('remco@remcohendriksen.nl')
+const password = ref('12345678')
 const error = ref(null)
 const route = useRoute()
 const router = useRouter()
@@ -40,7 +43,7 @@ const submit = async () => {
     await login(email.value, password.value)
     router.push({ path: route.query.redirect || '/' })
   } catch (e) {
-    error.value = messages[e.message]
+    error.value = messages[e.message] || e.message
   }
 }
 </script>

@@ -3,7 +3,7 @@ import { ref as fileRef, uploadBytes, uploadString, listAll, deleteObject, getDo
 
 export const useFiles = () => {
   const { $storage } = useNuxtApp()
-  const { user } = useAuth()
+  const { organizationId } = useOrganization()
   const route = useRoute()
   const selected = ref([])
   const files = ref([])
@@ -25,8 +25,8 @@ export const useFiles = () => {
     selected.value.push(file)
   }
 
-  const rootPath = computed(() => `/${user.value.uid}/`)
-  const currentPath = computed(() => `/${user.value.uid}/files/${route.params.slug ? route.params.slug.join('/') : ''}`)
+  const rootPath = computed(() => `/${organizationId.value}/`)
+  const currentPath = computed(() => `/${organizationId.value}/files/${route.params.slug ? route.params.slug.join('/') : ''}`)
 
   const getFiles = async () => {
     const listRef = fileRef($storage, currentPath.value)

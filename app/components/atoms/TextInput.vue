@@ -1,23 +1,39 @@
 <template>
-  <div :class="[$attrs.class, $style['text-input-container']]">
+  <div
+    :class="[
+      $attrs.class,
+      $style['text-input-container'],
+      { [$style[`text-input-container--${color}`]]: !!color},
+      { [$style['text-input-container--full-width']]: !!fullWidth}
+    ]">
     <input
       :id="$attrs.id"
       ref="input"
       v-model="text"
       :class="$style['text-input']"
       :type="$attrs.type"
-      :placeholder="$attrs.placeholder">
+      :placeholder="$attrs.placeholder"
+      @input="event => $emit('input', event)"
+      @blur="event => $emit('blur', event)">
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 const text = defineModel()
 const input = ref(null)
+defineEmits(['blur', 'input'])
 defineOptions({
   inheritAttrs: false
 })
 
+interface Props {
+    color?: 'error',
+    fullWidth?: boolean
+}
+
+defineProps<Props>()
+
 </script>
-<style  module>
+<style module>
 .text-input-container {
     border: 1px solid var(--border-subtle);
     border-radius: var(--border-radius-l);
@@ -35,6 +51,13 @@ defineOptions({
     &:hover:not(:focus-within) {
         border-color: var(--secondary-base);
     }
+}
+.text-input-container--error {
+    border-color: var(--error-base);
+}
+.text-input-container--full-width {
+    width: 100%;
+
 }
 .text-input {
     background-color: transparent;

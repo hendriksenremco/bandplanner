@@ -1,14 +1,13 @@
 import type { Timestamp, FieldValue } from 'firebase/firestore'
 
 global {
-    interface SetlistItem {
+    interface OrganizationItem {
         id?: string
         name: string
-        userId: string
+        admins: array<string>
+        members:array<string>
         createdAt: Timestamp | FieldValue
         updatedAt: Timestamp | FieldValue,
-        songs: array
-        organizationId: array<string>
     }
 
 }

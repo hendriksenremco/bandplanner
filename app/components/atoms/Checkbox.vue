@@ -23,6 +23,11 @@ defineProps<{
     height: var(--spacing-xl);
     position: relative;
 
+    &[disabled] {
+        opacity: .5;
+        pointer-events: none;
+    }
+
     &:hover {
         background-color: var(--background-subtle);
     }

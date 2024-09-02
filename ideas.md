@@ -37,8 +37,10 @@
 - [ ] Als bandleider kan ik datums voorstellen voor repetities en optredens
 - [ ] Als bandleider kan ik setlists delen met bandleden
 - [ ] Als bandlid zie ik updates over data en setlist wijzigingen
-- [ ] Als gebruiker kan ik inloggen op bandplanner
-- [ ] Als gebruiker krijg ik feedback bij verkeerde logingegevens
-- [ ] Als gebruiker kan ik me registreren op bandplanner
+- [x] Als gebruiker kan ik inloggen op bandplanner
+- [x] Als gebruiker krijg ik feedback bij verkeerde logingegevens
+- [x] Als gebruiker kan ik me registreren op bandplanner
 - [ ] Als gebruiker kan ik mijn wachtwoord resetten
-- [ ] Als gebruiker kan ik uitloggen op bandplanner
+- [x] Als gebruiker kan ik uitloggen op bandplanner
+- [ ] Als gebruiker kan ik mijn profiel aanpassen
+- [ ] Als gebruiker kan ik pdf's bekijken

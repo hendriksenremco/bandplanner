@@ -9,6 +9,7 @@ const converter = {
 export const useSetlists = () => {
   const { $db } = useNuxtApp()
   const { user } = useAuth()
+  const { organizationId } = useOrganization()
   const lists: Ref<Array<SetlistItem>> = ref([])
 
   const add = async (item: Omit<SetlistItem, 'id'>) => {
@@ -16,19 +17,22 @@ export const useSetlists = () => {
     item.userId = user.value.uid
     item.createdAt = serverTimestamp()
     item.updatedAt = serverTimestamp()
+    item.organizationId = [organizationId.value]
     item.songs = []
     await addDoc(collection($db, 'setlists'), item)
     await getAll()
   }
 
   const edit = async (item: SetlistItem) => {
+    if (!item.id) { return }
     const docRef = doc($db, 'setlists', item.id).withConverter(converter)
+    item.songs = item.songs.map(song => song.id)
     return await updateDoc(docRef, item)
   }
   const getAll = async () => {
     if (!user.value?.uid) { return }
 
-    const q = query(collection($db, 'setlists').withConverter(converter), where('userId', '==', user.value.uid))
+    const q = query(collection($db, 'setlists').withConverter(converter), where('organizationId', 'array-contains', organizationId.value))
     const snapshot = await getDocs(q)
     lists.value = []
     snapshot.forEach(doc => {
@@ -57,6 +61,8 @@ export const useSetlists = () => {
     const songsSnapshot = await getDocs(q)
     const songs = songsSnapshot.docs.map(doc => {
       return { id: doc.id, ...doc.data() }
+    }).sort((a, b) => {
+      return data.songs.indexOf(a.id) > data.songs.indexOf(b.id) ? 1 : -1
     })
 
     return { id: snapshot.id, ...data, songs }

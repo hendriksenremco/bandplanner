@@ -7,9 +7,6 @@
       <ActionButton color="filled" :icon="IconDelete" @click="deleteSelection()">
         Verwijderen
       </ActionButton>
-      <ActionButton color="filled" :icon="IconShare">
-        Delen
-      </ActionButton>
     </ActionBar>
 
     <Dialog v-if="showDialog" @close="showDialog = false">

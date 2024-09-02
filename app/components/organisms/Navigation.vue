@@ -40,12 +40,19 @@ const items = reactive([
     }
   },
   {
-    label: 'Bestanden',
-    icon: IconFolder,
+    label: 'Organisaties',
+    icon: IconList,
     to: {
-      name: 'files-slug'
+      name: 'organizations'
     }
   },
+  //   {
+  //     label: 'Bestanden',
+  //     icon: IconFolder,
+  //     to: {
+  //       name: 'files-slug'
+  //     }
+  //   },
   //   {
   //     label: 'Planning',
   //     icon: IconCalendar,

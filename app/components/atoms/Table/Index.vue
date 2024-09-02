@@ -1,11 +1,12 @@
 <template>
-  <table :class="$style['table']">
+  <div :class="$style['table']">
     <slot />
-  </table>
+  </div>
 </template>
 <style lang="scss" module>
 .table {
 border-collapse: collapse;
+display: table;
 width: 100%;
 }
 </style>

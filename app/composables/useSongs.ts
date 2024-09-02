@@ -10,6 +10,7 @@ const converter = {
 export const useSongs = () => {
   const { $db, $storage } = useNuxtApp()
   const { user } = useAuth()
+  const { organizationId } = useOrganization()
   const songs: Ref<Array<SongItem>> = ref([])
 
   const addSong = async (item: Omit<SongItem, 'id'>) => {
@@ -17,12 +18,15 @@ export const useSongs = () => {
     item.userId = user.value.uid
     item.createdAt = serverTimestamp()
     item.updatedAt = serverTimestamp()
+    item.organizationId = [organizationId.value]
     await addDoc(collection($db, 'songs'), item)
     await getSongs()
   }
 
   const editSong = async (item: SongItem) => {
+    if (!item.id) { return }
     const docRef = doc($db, 'songs', item.id).withConverter(converter)
+    delete item.id
     return await updateDoc(docRef, item)
   }
 
@@ -35,7 +39,7 @@ export const useSongs = () => {
   const getSongs = async () => {
     if (!user.value?.uid) { return }
 
-    const q = query(collection($db, 'songs').withConverter(converter), where('userId', '==', user.value.uid))
+    const q = query(collection($db, 'songs').withConverter(converter), where('organizationId', 'array-contains', organizationId.value))
     const snapshot = await getDocs(q)
     songs.value = []
     snapshot.forEach(doc => {
@@ -51,7 +55,7 @@ export const useSongs = () => {
   }
 
   const getAttachments = async (songId: string, subFolder: string) => {
-    const listRef = fileRef($storage, `/${user.value?.uid}/attachements/${songId}/${subFolder}`)
+    const listRef = fileRef($storage, `/${organizationId.value}/attachements/${songId}/${subFolder}`)
     const res = await listAll(listRef)
     return res.items
   }
